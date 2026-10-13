@@ -42,17 +42,20 @@
 
                     <div class="input-group">
                         <label for="celular">Celular:</label>
-                        <input type="text" id="celular" required placeholder="Ex: (11) 99999-9999">
+                        <input type="text" id="celular" required maxlength="15" inputmode="tel"
+                            pattern="\(\d{2}\) \d{4,5}-\d{4}" title="Formato: (61) 99999-9999">
                     </div>
 
                     <div class="input-group">
                         <label for="cep">CEP:</label>
-                        <input type="text" id="cep" required placeholder="Ex: 01001-000">
+                        <input type="text" id="cep" required maxlength="9" inputmode="numeric"
+                            pattern="\d{5}-\d{3}" title="Formato: 01001-000">
                     </div>
 
                     <div class="input-group">
                         <label for="cpf">CPF:</label>
-                        <input type="text" id="cpf" required placeholder="Ex: 123.456.789-00">
+                        <input type="text" id="cpf" required maxlength="14" inputmode="numeric"
+                            pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Formato: 123.456.789-10">
                     </div>
 
                     <div class="input-group">
