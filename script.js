@@ -113,7 +113,7 @@ form.addEventListener('submit', async (e) => {
         alert('Erro ao salvar aluno no servidor. Por favor, tente novamente.');
     }
 });
-
+    
 // 3. ATUALIZAR (preparar edição): preenche o formulário com os dados do aluno clicado
 function iniciarEdicao(aluno) {
     editandoID = aluno.id;
@@ -158,6 +158,42 @@ function resetarFormulario() {
     btnSave.textContent = 'Salvar Aluno';
     btnCancel.style.display = 'none';
 }
+
+// ---------- MÁSCARAS ----------
+const soDigitos = (v) => v.replace(/\D/g, '');
+
+function formatarCPF(valor) {
+    const v = soDigitos(valor).slice(0, 11);
+    return v
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+}
+
+function formatarCelular(valor) {
+    const v = soDigitos(valor).slice(0, 11);
+    if (v.length > 10) return v.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3'); // celular com 9
+    if (v.length > 6)  return v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3'); // fixo ou digitando
+    if (v.length > 2)  return v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+    if (v.length > 0)  return v.replace(/(\d{0,2})/, '($1');
+    return '';
+}
+
+function formatarCEP(valor) {
+    const v = soDigitos(valor).slice(0, 8);
+    return v.length > 5 ? v.replace(/(\d{5})(\d{1,3})/, '$1-$2') : v;
+}
+
+// Liga a máscara ao campo: formata enquanto o usuário digita (ou cola)
+function aplicarMascara(input, formatar) {
+    input.addEventListener('input', () => {
+        input.value = formatar(input.value);
+    });
+}
+
+aplicarMascara(inputCPF, formatarCPF);
+aplicarMascara(inputCelular, formatarCelular);
+aplicarMascara(inputCEP, formatarCEP);
 
 // Carrega a lista de alunos assim que a página abre
 carregarAlunos();
