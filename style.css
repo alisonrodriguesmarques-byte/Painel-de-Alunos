@@ -97,7 +97,7 @@ header button {
 main {
     padding: clamp(1rem, 3vw, 2rem);
     display: grid;
-    grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     gap: clamp(1rem, 3vw, 2rem);
     align-items: start;
 }
@@ -106,12 +106,6 @@ main {
 .form-section,
 .list-section {
     min-width: 0;
-}
-
-@media (max-width: 900px) {
-    main {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* ---------- Formulário (folha de caderno) ---------- */
@@ -133,6 +127,17 @@ main {
     display: inline-block;
     background: linear-gradient(transparent 60%, var(--highlight) 60%); /* marca-texto */
     padding: 0 0.25rem;
+}
+
+.form-section form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0 1.25rem;
+}
+
+.form-section .form-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
 }
 
 .input-group {
@@ -228,8 +233,7 @@ a:focus-visible {
 
 /* ---------- Tabela ---------- */
 .table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
     margin-top: 1rem;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
@@ -238,7 +242,7 @@ a:focus-visible {
 
 .table-container table {
     width: 100%;
-    min-width: 720px; /* abaixo disso, rola na horizontal dentro do container */
+    table-layout: auto;
     color: var(--text-main);
     border-collapse: collapse;
 }
@@ -256,10 +260,12 @@ a:focus-visible {
 
 .table-container table th,
 .table-container table td {
-    padding: 0.75rem 1rem;
+    padding: 0.65rem 0.6rem;
     text-align: left;
     border-bottom: 1px solid var(--border-color);
     vertical-align: middle;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
 }
 
 .table-container table tbody tr:nth-child(even) {
@@ -278,7 +284,7 @@ a:focus-visible {
     background-color: #fff8cc; /* realce suave de marca-texto */
 }
 
-/* evita quebra feia em celular, CEP e CPF */
+/* celular, CEP e CPF não quebram no meio */
 .table-container table td:nth-child(4),
 .table-container table td:nth-child(5),
 .table-container table td:nth-child(6) {
@@ -387,5 +393,72 @@ td.actions > * + * {
 @media (prefers-reduced-motion: reduce) {
     * {
         transition: none !important;
+    }
+}
+
+
+/* ---------- Tabela em formato de cartões (celular) ---------- */
+@media (max-width: 900px) {
+    .table-container {
+        overflow: visible;
+        border: none;
+        background: transparent;
+    }
+
+    .table-container table,
+    .table-container table tbody,
+    .table-container table tr,
+    .table-container table td {
+        display: block;
+        width: 100%;
+    }
+
+    /* cabeçalho some visualmente, mas continua acessível */
+    .table-container table thead {
+        position: absolute;
+        left: -9999px;
+    }
+
+    .table-container table tbody tr,
+    .table-container table tbody tr:nth-child(even) {
+        background: #ffffff;
+        border: 1px solid var(--border-color);
+        border-left: 3px solid var(--margin-line);
+        border-radius: var(--radius);
+        margin-bottom: 0.75rem;
+        padding: 0.4rem 0;
+    }
+
+    .table-container table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.4rem 1rem;
+        border: none;
+        text-align: right;
+        white-space: normal !important;
+    }
+
+    .table-container table td::before {
+        font-weight: 700;
+        color: var(--text-muted);
+        text-align: left;
+        flex-shrink: 0;
+    }
+
+    .table-container table td:nth-child(1)::before { content: "ID"; }
+    .table-container table td:nth-child(2)::before { content: "Nome"; }
+    .table-container table td:nth-child(3)::before { content: "Email"; }
+    .table-container table td:nth-child(4)::before { content: "Celular"; }
+    .table-container table td:nth-child(5)::before { content: "CEP"; }
+    .table-container table td:nth-child(6)::before { content: "CPF"; }
+    .table-container table td:nth-child(7)::before { content: "Curso"; }
+    .table-container table td:nth-child(8)::before { content: "Ações"; }
+
+    .table-container table td:nth-child(8) {
+        border-top: 1px dashed var(--border-color);
+        margin-top: 0.3rem;
+        padding-top: 0.6rem;
     }
 }
