@@ -1,0 +1,391 @@
+/* ==== Tema Escolar: caderno, lousa e marca-texto ==== */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+    --primary-color: #1f4e8c;      /* azul caneta */
+    --primary-hover: #163a6a;
+    --danger-color: #c8372d;       /* vermelho de correção */
+    --danger-hover: #a02a22;
+    --edit-color: #b87d00;         /* amarelo marca-texto (escurecido p/ contraste) */
+    --edit-hover: #8f6100;
+    --highlight: #ffe66d;
+    --chalkboard: #24493b;
+    --chalkboard-dark: #1a362b;
+    --wood: #8a5a33;
+    --bg-color: #eef3f8;
+    --surface-color: #fffefb;
+    --surface-alt: #f4f8fc;
+    --text-main: #1d2a3a;
+    --text-muted: #5a6b7e;
+    --border-color: #cfdae6;
+    --margin-line: #e9a3a0;
+    --focus: 0 0 0 3px rgba(31, 78, 140, 0.25);
+    --radius: 10px;
+    --font-main: 'Nunito', 'Segoe UI', 'Trebuchet MS', system-ui, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    /* pauta de caderno */
+    background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 31px,
+        rgba(31, 78, 140, 0.08) 31px,
+        rgba(31, 78, 140, 0.08) 32px
+    );
+    color: var(--text-main);
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    padding: clamp(0.75rem, 3vw, 2rem);
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    align-self: flex-start;
+    background: var(--surface-color);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px rgba(31, 78, 140, 0.12);
+    overflow: hidden;
+}
+
+/* ---------- Cabeçalho (lousa) ---------- */
+header {
+    background: var(--chalkboard);
+    background-image: radial-gradient(ellipse at 30% 0%, rgba(255, 255, 255, 0.08), transparent 60%);
+    color: #f3f7f4;
+    padding: clamp(1.25rem, 4vw, 2rem);
+    text-align: center;
+    position: relative;
+    border-bottom: 8px solid var(--wood);
+}
+
+header h1 {
+    font-size: clamp(1.5rem, 5vw, 2.25rem);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.4rem;
+    color: #ffffff;
+    overflow-wrap: anywhere;
+}
+
+header p {
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    color: #cfe0d6;
+}
+
+header button {
+    font-family: var(--font-main);
+}
+
+/* ---------- Layout principal ---------- */
+main {
+    padding: clamp(1rem, 3vw, 2rem);
+    display: grid;
+    grid-template-columns: minmax(250px, 320px) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: start;
+}
+
+/* min-width:0 evita que a tabela estoure o grid */
+.form-section,
+.list-section {
+    min-width: 0;
+}
+
+@media (max-width: 900px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- Formulário (folha de caderno) ---------- */
+.form-section {
+    background: #ffffff;
+    padding: 1.5rem 1.5rem 1.5rem 2.25rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--margin-line); /* margem do caderno */
+    box-shadow: 0 2px 6px rgba(31, 78, 140, 0.08);
+}
+
+.form-section h2,
+.list-section h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 1.25rem;
+    color: var(--primary-color);
+    display: inline-block;
+    background: linear-gradient(transparent 60%, var(--highlight) 60%); /* marca-texto */
+    padding: 0 0.25rem;
+}
+
+.input-group {
+    margin-bottom: 1.1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.input-group input,
+.input-group select {
+    width: 100%;
+    min-width: 0;
+    padding: 0.7rem 0.8rem;
+    background: var(--surface-alt);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius);
+    font-size: 1rem; /* 16px evita zoom no iOS */
+    font-family: inherit;
+    color: var(--text-main);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.input-group input::placeholder {
+    color: #8b9bb0;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    border-color: var(--primary-color);
+    background: #ffffff;
+    outline: none;
+    box-shadow: var(--focus);
+}
+
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+/* ---------- Botões ---------- */
+button {
+    padding: 0.7rem 1.25rem;
+    border: 1.5px solid transparent;
+    border-radius: var(--radius);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.1s;
+    font-family: inherit;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.btn-save {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    flex: 1 1 140px;
+}
+
+.btn-save:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.btn-cancel {
+    background-color: transparent;
+    border-color: var(--border-color);
+    color: var(--text-muted);
+    flex: 0 1 auto;
+}
+
+.btn-cancel:hover {
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+/* ---------- Tabela ---------- */
+.table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: #ffffff;
+}
+
+.table-container table {
+    width: 100%;
+    min-width: 720px; /* abaixo disso, rola na horizontal dentro do container */
+    color: var(--text-main);
+    border-collapse: collapse;
+}
+
+.table-container table thead {
+    background-color: var(--chalkboard);
+}
+
+.table-container table th {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.table-container table th,
+.table-container table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.table-container table tbody tr:nth-child(even) {
+    background-color: var(--surface-alt);
+}
+
+.table-container table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-container table tbody tr {
+    transition: background-color 0.15s;
+}
+
+.table-container table tbody tr:hover {
+    background-color: #fff8cc; /* realce suave de marca-texto */
+}
+
+/* evita quebra feia em celular, CEP e CPF */
+.table-container table td:nth-child(4),
+.table-container table td:nth-child(5),
+.table-container table td:nth-child(6) {
+    white-space: nowrap;
+}
+
+/* ---------- Ações da tabela ---------- */
+.actions {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+}
+
+/* caso a classe .actions esteja diretamente no <td> */
+td.actions {
+    display: table-cell;
+    white-space: nowrap;
+}
+
+td.actions > * + * {
+    margin-left: 0.5rem;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px; /* alvo de toque confortável */
+    padding: 0;
+    background: transparent;
+    flex-shrink: 0;
+}
+
+.btn-icon svg {
+    display: block;
+}
+
+.btn-edit {
+    border-color: var(--edit-color);
+    color: var(--edit-color);
+}
+
+.btn-edit:hover {
+    background-color: var(--edit-color);
+    color: #ffffff;
+}
+
+.btn-delete {
+    border-color: var(--danger-color);
+    color: var(--danger-color);
+}
+
+.btn-delete:hover {
+    background-color: var(--danger-color);
+    color: #ffffff;
+}
+
+/* ---------- Botão de PDF ---------- */
+.btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.6rem 1.25rem;
+    background-color: var(--highlight);
+    border: 1.5px solid var(--highlight);
+    color: var(--chalkboard-dark);
+    font-size: 0.9rem;
+    border-radius: var(--radius);
+}
+
+.btn-download svg {
+    display: block;
+}
+
+.btn-download:hover {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+/* ---------- Telas pequenas ---------- */
+@media (max-width: 480px) {
+    body {
+        padding: 0.5rem;
+    }
+
+    .form-section {
+        padding: 1.25rem 1rem 1.25rem 1.5rem;
+    }
+
+    .table-container table th,
+    .table-container table td {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    .form-actions button,
+    .btn-download {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}

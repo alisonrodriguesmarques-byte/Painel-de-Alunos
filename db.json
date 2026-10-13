@@ -1,0 +1,22 @@
+{
+  "alunos": [
+    {
+      "id": 1,
+      "nome": "João",
+      "email": "joao.silva@gmail.com",
+      "curso": "Engenharia de software",
+      "celular": "(61) 9999-999",
+      "cep": "11111-111",
+      "cpf": "111222333"
+    },
+    {
+      "id": 2,
+      "nome": "Maria",
+      "email": "maria.silva@gmail.com",
+      "curso": "Ciência da Computação",
+      "celular": "(61) 9999-999",
+      "cep": "22222-222",
+      "cpf": "222333444"
+    }
+  ]
+}
